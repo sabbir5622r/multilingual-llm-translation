@@ -1,0 +1,70 @@
+seed: 42
+root: .
+phase: pilot
+sample_groups: 30
+exclude_first_groups: 0
+translation_groups: 10
+control_groups: 10
+bootstrap: 2000
+max_input_tokens: 4096
+max_new_tokens: 8
+hourly_rate: 0.0
+instruction_languages: [en, bn]
+languages:
+  bn: {name: Bengali, belebele: ben_Beng, xnli: null, nllb: ben_Beng}
+  hi: {name: Hindi, belebele: hin_Deva, xnli: hi, nllb: hin_Deva}
+  ur: {name: Urdu, belebele: urd_Arab, xnli: ur, nllb: urd_Arab}
+  ne: {name: Nepali, belebele: npi_Deva, xnli: null, nllb: npi_Deva}
+  si: {name: Sinhala, belebele: sin_Sinh, xnli: null, nllb: sin_Sinh}
+  ps: {name: Southern Pashto, belebele: pbt_Arab, xnli: null, nllb: pbt_Arab}
+datasets:
+  belebele:
+    id: facebook/belebele
+    revision: main
+    split: test
+    english: eng_Latn
+    license: CC-BY-SA-4.0
+    provenance: English-authored questions/options; FLORES passages have separate source provenance
+  xnli:
+    id: facebook/xnli
+    revision: main
+    split: validation
+    english: en
+    license: CC-BY-NC-4.0
+    provenance: English-authored MultiNLI; professionally translated evaluation
+models:
+  qwen:
+    id: Qwen/Qwen3-4B-Instruct-2507
+    revision: main
+    dtype: float16
+    loader: causal
+    chat_kwargs: {}
+    license: apache-2.0
+  gemma:
+    id: google/gemma-3-4b-it
+    revision: main
+    dtype: float32
+    loader: gemma3
+    chat_kwargs: {}
+    license: gemma
+  llama:
+    id: meta-llama/Llama-3.1-8B-Instruct
+    revision: main
+    dtype: float16
+    loader: causal
+    chat_kwargs: {}
+    license: llama3.1
+translators:
+  nllb:
+    id: facebook/nllb-200-distilled-600M
+    revision: main
+    kind: nllb
+    max_input_tokens: 1024
+    max_new_tokens: 1024
+  m2m:
+    id: facebook/m2m100_418M
+    revision: main
+    kind: m2m
+    max_input_tokens: 1024
+    max_new_tokens: 1024
+    languages: [bn, hi, ur, ne, si, ps]
